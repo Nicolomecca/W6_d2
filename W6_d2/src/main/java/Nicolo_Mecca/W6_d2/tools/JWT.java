@@ -33,4 +33,10 @@ public class JWT {
             throw new UnauthorizedException("Problemi con il token! per favore effettua nuovamente il login");
         }
     }
+
+    public String getIdFromToken(String accessToken) {
+        return Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes())).build().parseSignedClaims(accessToken)
+                .getPayload().getSubject(); // All'interno del Payload, nel campo Subject avevamo inserito l'id dell'utente
+    }
 }
+
