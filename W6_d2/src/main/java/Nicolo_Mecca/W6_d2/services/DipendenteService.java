@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,9 @@ public class DipendenteService {
 
     @Autowired
     private DipendenteRepository dipendenteRepository;
+
+    @Autowired
+    private PasswordEncoder bcrypt;
 
 
     public Dipendente findById(Long id) {
@@ -39,7 +43,7 @@ public class DipendenteService {
         newDipendente.setEmail(body.email());
         newDipendente.setImgProfilo("https://ui-avatars.com/api/?name=" +
                 body.nome() + "+" + body.cognome());
-        newDipendente.setPassword(body.password());
+        newDipendente.setPassword(bcrypt.encode(body.password()));
         newDipendente.setRole(Role.USER);
         return dipendenteRepository.save(newDipendente);
     }

@@ -1,5 +1,6 @@
 package Nicolo_Mecca.W6_d2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties({"password", "role", "accountNonLocked", "credentialsNonExpired", "accountNonExpired", "authorities", "enabled"})
+
 public class Dipendente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +31,6 @@ public class Dipendente implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     public Dipendente(String password, String imgProfilo, String email, String cognome, String nome, String username) {
         this.password = password;
