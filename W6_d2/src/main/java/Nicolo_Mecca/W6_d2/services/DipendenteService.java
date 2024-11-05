@@ -1,6 +1,7 @@
 package Nicolo_Mecca.W6_d2.services;
 
 import Nicolo_Mecca.W6_d2.entities.Dipendente;
+import Nicolo_Mecca.W6_d2.entities.Role;
 import Nicolo_Mecca.W6_d2.excepetions.BadRequestException;
 import Nicolo_Mecca.W6_d2.excepetions.NotFoundException;
 import Nicolo_Mecca.W6_d2.payloads.NewDipendenteDTO;
@@ -39,6 +40,7 @@ public class DipendenteService {
         newDipendente.setImgProfilo("https://ui-avatars.com/api/?name=" +
                 body.nome() + "+" + body.cognome());
         newDipendente.setPassword(body.password());
+        newDipendente.setRole(Role.USER);
         return dipendenteRepository.save(newDipendente);
     }
 
